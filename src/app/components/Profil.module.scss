@@ -1,0 +1,158 @@
+.auth {
+    padding: 40px 0;
+  
+    .profil {
+      display: flex;
+      gap: 20px;
+  
+      .chat {
+        display: flex;
+        flex-direction: column;
+        width: 300px;
+        height: 700px;
+        background: black;
+        color: white;
+        border-radius: 15px;
+        padding: 20px;
+  
+        h1 {
+          display: flex;
+          gap: 25px;
+          margin-top: 30px;
+        }
+  
+        button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 20px;
+          width: 200px;
+          height: 40px;
+          background: none;
+          border: 2px solid white;
+          color: white;
+          border-radius: 10px;
+          margin-top: auto;
+          font-size: 20px;
+          cursor: pointer;
+  
+          &:hover {
+            background: rgba(255, 255, 255, 0.1);
+          }
+        }
+      }
+  
+      .chatContainer {
+        width: 800px;
+        height: 740px;
+        border-radius: 20px;
+        border: 2px solid black;
+        display: flex;
+        flex-direction: column;
+  
+        .userInfo {
+          display: flex;
+          gap: 20px;
+          align-items: center;
+          background: black;
+          padding: 20px;
+          border-top-right-radius: 15px;
+          border-top-left-radius: 15px;
+          color: white;
+  
+          img {
+            width: 50px;
+            height: 50px;
+          }
+        }
+  
+        .messagesContainer {
+          flex-grow: 1;
+          padding: 10px;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          overflow-y: auto;
+          scroll-behavior: smooth;
+  
+          img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+          }
+  
+          .message {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #333;
+            color: white;
+  
+            &.myMessage {
+              background-color: #007bff;
+              align-self: flex-end;
+            }
+  
+            &.otherMessage {
+              background-color: #c8cccb;
+            }
+          }
+        }
+  
+        .messageForm {
+          display: flex;
+          gap: 10px;
+          margin-top: 20px;
+  
+          input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+          }
+  
+          button {
+            padding: 10px 20px;
+            background: black;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  
+    .signIn {
+      display: flex;
+      padding: 10px;
+      text-align: center;
+      flex-direction: column;
+      width: 300px;
+      height: 400px;
+      background: rgb(234, 237, 237);
+      margin: 0 auto;
+      border-radius: 15px;
+      gap: 20px;
+  
+      h1 {
+        font-size: 70px;
+        margin-top: 40px;
+      }
+  
+      button {
+        width: 250px;
+        height: 40px;
+        margin: 0 auto;
+        background: black;
+        color: white;
+        border-radius: 11px;
+        border: none;
+        cursor: pointer;
+        margin-top: 150px;
+      }
+    }
+  }
+  
