@@ -7,14 +7,12 @@ import s from "./Profil.module.scss";
 import { BsGithub } from "react-icons/bs";
 import { HiChatBubbleBottomCenterText } from "react-icons/hi2";
 import { IoExit } from "react-icons/io5";
-import { log } from "console";
-
 
 interface IChatWebSocket {
   username: string;
   photo: string;
   message: string;
-} 
+}
 
 const Profil: FC = () => {
   const [messages, setMessages] = useState<IChatWebSocket[]>([]);
@@ -22,9 +20,6 @@ const Profil: FC = () => {
   const { data: session } = useSession();
   const { register, handleSubmit, reset } = useForm<{ message: string }>();
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
-
-console.log( messagesEndRef);
-
 
   const initialWebSocket = () => {
     const ws = new WebSocket("wss://api.elchocrud.pro");
@@ -34,22 +29,17 @@ console.log( messagesEndRef);
     ws.onmessage = (event) => {
       const newMessage = JSON.parse(event.data);
       console.log("Получено новое сообщение: ", newMessage);
-      setMessages(newMessage)
-
+      setMessages((prevMessages) => [...prevMessages, newMessage]); // Добавление нового сообщения
     };
     ws.onerror = (error) => {
       console.log("Ошибка WebSocket:", error);
     };
     ws.onclose = () => {
       console.log("WebSocket закрыт");
-      initialWebSocket(); 
+      initialWebSocket();
     };
     setSocket(ws);
   };
-
-
-  console.log(messages[0], "messages");
-  
 
   const onSubmit = handleSubmit((data) => {
     if (!session || !data.message.trim()) return;
@@ -59,17 +49,16 @@ console.log( messagesEndRef);
       photo: session.user?.image || "",
       message: data.message,
     };
-    socket?.send(JSON.stringify(messageData)); 
-    reset(); 
+    socket?.send(JSON.stringify(messageData));
+    reset();
   });
 
   useEffect(() => {
-    initialWebSocket(); 
+    initialWebSocket();
     return () => {
-      socket?.close(); 
+      socket?.close();
     };
   }, []);
-
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -90,11 +79,13 @@ console.log( messagesEndRef);
             </div>
             <div className={s.chatContainer}>
               <div className={s.userInfo}>
-                <img
-                  className={s.userImage}
-                  src={session?.user?.image}
-                  alt="img"
-                />
+                {session?.user?.image && (
+                  <img
+                    className={s.userImage}
+                    src={session.user.image}
+                    alt="img"
+                  />
+                )}
                 <div>
                   <h6>{session?.user?.name}</h6>
                   <h6>{session?.user?.email}</h6>
@@ -105,7 +96,11 @@ console.log( messagesEndRef);
                 {messages.map((msg, index) => (
                   <div
                     key={index}
-                    className={`${s.message} ${msg.username === session?.user?.name ? s.myMessage : s.otherMessage}`}
+                    className={`${s.message} ${
+                      msg.username === session?.user?.name
+                        ? s.myMessage
+                        : s.otherMessage
+                    }`}
                   >
                     <img className={s.userImage} src={msg.photo} alt="" />
                     <div>
@@ -114,14 +109,8 @@ console.log( messagesEndRef);
                     </div>
                   </div>
                 ))}
-                  <div ref={messagesEndRef} /> {/* Прокрутка к этому элементу */}
-                
+                <div ref={messagesEndRef} /> {/* Прокрутка к этому элементу */}
               </div>
-
-            
-            
-
-             
 
               <form onSubmit={onSubmit} className={s.messageForm}>
                 <input
@@ -138,9 +127,7 @@ console.log( messagesEndRef);
             <h1>
               <BsGithub />
             </h1>
-            <button onClick={() => signIn("github")}>
-              Войти через GitHub
-            </button>
+            <button onClick={() => signIn("github")}>Войти через GitHub</button>
           </div>
         )}
       </div>
