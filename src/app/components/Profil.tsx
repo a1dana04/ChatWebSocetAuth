@@ -24,19 +24,19 @@ const Profil: FC = () => {
   const initialWebSocket = () => {
     const ws = new WebSocket("wss://api.elchocrud.pro");
     ws.onopen = () => {
-      console.log("WebSocket открыт");
+      console.log("WebSocket opened");
     };
     ws.onmessage = (event) => {
-      const newMessage = JSON.parse(event.data);
-      console.log("Получено новое сообщение: ", newMessage);
-      setMessages((prevMessages) => [...prevMessages, newMessage]); // Добавление нового сообщения
+        console.log(JSON.parse(event.data))
+        
+      setMessages(JSON.parse(event.data));
     };
     ws.onerror = (error) => {
-      console.log("Ошибка WebSocket:", error);
+      console.log(error);
     };
     ws.onclose = () => {
-      console.log("WebSocket закрыт");
-      initialWebSocket();
+      console.log("WebSocket closed");
+      initialWebSocket()
     };
     setSocket(ws);
   };
